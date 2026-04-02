@@ -159,7 +159,7 @@ const AdminOrders = () => {
                     </span>
                   </td>
                   <td className="px-8 py-5 text-right">
-                    <div className="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex justify-end gap-3 transition-opacity lg:opacity-0 lg:group-hover:opacity-100">
                       <button 
                         onClick={() => setSelectedOrder(order)}
                         className="p-2.5 text-[#00ffff] hover:bg-[#00ffff]/10 rounded-lg transition-colors border border-[#00ffff]/20" title="Détails">
