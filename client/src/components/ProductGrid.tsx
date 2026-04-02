@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import { productApi, orderApi } from '../lib/api';
-import { Smartphone, Info, Hash } from 'lucide-react';
+import { Smartphone, Info, Hash, Zap, X, ShieldCheck, ChevronRight } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -73,11 +73,11 @@ const ProductGrid = () => {
 
       await orderApi.createOrder(orderData);
       
-      setNotification({ type: 'success', message: `Top-up en cours pour ${formData.pseudo} ! Livraison immédiate.` });
+      setNotification({ type: 'success', message: `TOP-UP EN COURS POUR ${formData.pseudo.toUpperCase()} !` });
       setShowModal(false);
       setFormData({ name: '', email: '', phone: '', uid: '', pseudo: '', reference: '' });
     } catch (error) {
-      setNotification({ type: 'error', message: "Désolé, une erreur est survenue. Contactez-nous sur Facebook." });
+      setNotification({ type: 'error', message: "ERREUR SYSTÈME. CONTACTEZ LE SUPPORT." });
     } finally {
       setIsSubmitting(false);
       setTimeout(() => setNotification(null), 5000);
@@ -89,193 +89,102 @@ const ProductGrid = () => {
     : products.filter(p => p.category === activeCategory);
 
   return (
-    <section id="products" className="py-20 px-4 max-w-7xl mx-auto sm:py-32 relative">
+    <section id="products" className="py-24 px-6 max-w-7xl mx-auto relative bg-black">
       {/* Promotional Title */}
-      <div className="mb-16 text-center animate-in fade-in zoom-in duration-1000">
-        <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight leading-relaxed">
-          💎 ACHAT DIAMANT FREE FIRE VIA UID 💎<br/>
-          <span className="text-indigo-600">⚡ Service FAST & sécurisé ⚡</span>
+      <div className="mb-24 text-center">
+        <div className="inline-block py-2 px-6 mb-8 rounded-xl bg-[#00ffff]/10 border border-[#00ffff]/20 text-[#00ffff] text-[10px] font-black uppercase tracking-[0.4em] shadow-[0_0_20px_rgba(0,255,255,0.1)]">
+          ⚡ SECURED TRANSACTION SYSTEM ⚡
+        </div>
+        <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tighter leading-tight uppercase italic drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+          ACHAT DIAMANT <span className="text-[#00ffff]">FREE FIRE</span> VIA UID
         </h2>
       </div>
 
       {/* Personalized Notification */}
       {notification && (
-        <div className={`fixed top-20 right-4 z-[100] p-4 rounded-xl shadow-2xl border animate-in slide-in-from-right duration-300 ${
-          notification.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' : 'bg-red-50 border-red-200 text-red-800'
+        <div className={`fixed top-24 right-6 z-[100] p-6 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.5)] border backdrop-blur-xl animate-in slide-in-from-right duration-300 ${
+          notification.type === 'success' ? 'bg-black border-[#00ffff]/30 text-[#00ffff]' : 'bg-black border-red-500/30 text-red-500'
         }`}>
-          <div className="flex items-center gap-3">
-            <div className={`w-2 h-2 rounded-full ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}></div>
-            <p className="font-semibold text-sm">{notification.message}</p>
-          </div>
-        </div>
-      )}
-
-      {/* Checkout Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-[2.5rem] p-8 w-full max-w-lg shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto border border-gray-100">
-            <div className="flex flex-col items-center text-center mb-8">
-              <div className="w-12 h-1 bg-gray-200 rounded-full mb-6"></div>
-              <h3 className="text-3xl font-black text-gray-900 mb-2 tracking-tight">Finaliser votre achat</h3>
-              <p className="text-gray-500 text-sm">Pack : <span className="font-bold text-indigo-600 uppercase tracking-wider">{selectedProduct?.name}</span></p>
-            </div>
-            
-            <form onSubmit={handleConfirmOrder} className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="sm:col-span-2">
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Référence de paiement</label>
-                <div className="relative">
-                  <Hash className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500" size={16} />
-                  <input 
-                    required
-                    type="text" 
-                    value={formData.reference}
-                    onChange={(e) => setFormData({...formData, reference: e.target.value})}
-                    className="w-full pl-11 pr-5 py-4 rounded-2xl border-2 border-indigo-100 bg-indigo-50/30 focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-400 outline-none transition-all text-sm font-bold placeholder:text-indigo-300"
-                    placeholder="Entrez le numéro de transaction / réf"
-                  />
-                </div>
-                <p className="mt-2 text-[10px] text-gray-400 font-medium italic">Veuillez effectuer le paiement avant de valider.</p>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Pseudo In-game</label>
-                <input 
-                  required
-                  type="text" 
-                  value={formData.pseudo}
-                  onChange={(e) => setFormData({...formData, pseudo: e.target.value})}
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all text-sm font-medium"
-                  placeholder="Votre nom dans Free Fire"
-                />
-              </div>
-              <div className="sm:col-span-2">
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">UID Free Fire</label>
-                <input 
-                  required
-                  type="text" 
-                  value={formData.uid}
-                  onChange={(e) => setFormData({...formData, uid: e.target.value})}
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all text-sm font-medium"
-                  placeholder="Ex: 123456789"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Téléphone (WhatsApp)</label>
-                <input 
-                  required
-                  type="tel" 
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all text-sm font-medium"
-                  placeholder="Ex: 034 00 000 00"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Nom Complet</label>
-                <input 
-                  required
-                  type="text" 
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all text-sm font-medium"
-                  placeholder="Votre nom réel"
-                />
-              </div>
-              
-              <div className="sm:col-span-2 pt-4 flex gap-4">
-                <button 
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="flex-1 px-8 py-4 rounded-2xl border border-gray-200 text-sm font-bold text-gray-500 hover:bg-gray-50 transition-colors"
-                >
-                  Annuler
-                </button>
-                <button 
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex-1 px-8 py-4 rounded-2xl bg-gray-900 text-white text-sm font-bold shadow-xl shadow-gray-200 hover:bg-indigo-600 transition-all active:scale-95 disabled:opacity-50"
-                >
-                  {isSubmitting ? 'Traitement...' : 'Confirmer le Top-up'}
-                </button>
-              </div>
-            </form>
+          <div className="flex items-center gap-4">
+            <div className={`w-3 h-3 rounded-full animate-pulse ${notification.type === 'success' ? 'bg-[#00ffff] shadow-[0_0_10px_#00ffff]' : 'bg-red-500 shadow-[0_0_10px_#f00]'}`}></div>
+            <p className="font-black text-[10px] uppercase tracking-[0.2em]">{notification.message}</p>
           </div>
         </div>
       )}
 
       {/* Payment Info Box */}
-      <div className="mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
-        <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-[2.5rem] p-8 sm:p-12 shadow-2xl shadow-indigo-500/10 max-w-4xl mx-auto relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-3xl -mr-20 -mt-20"></div>
+      <div className="mb-32 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+        <div className="bg-[#050505] border border-[#00ffff]/10 rounded-[3rem] p-10 sm:p-16 shadow-2xl max-w-5xl mx-auto relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#00ffff]/5 blur-[100px] -mr-40 -mt-40"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#7000ff]/5 blur-[100px] -ml-40 -mb-40"></div>
           
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-indigo-600 rounded-lg text-white">
-              <Smartphone size={20} />
+          <div className="flex items-center gap-4 mb-10 relative z-10">
+            <div className="p-3 bg-[#00ffff]/10 border border-[#00ffff]/20 rounded-xl text-[#00ffff] shadow-[0_0_20px_rgba(0,255,255,0.1)]">
+              <Smartphone size={24} />
             </div>
-            <h2 className="text-xl font-black text-gray-900 tracking-tight uppercase">Comment payer ?</h2>
+            <h2 className="text-2xl font-black text-white tracking-[0.2em] uppercase italic">PROTOCOLE DE PAIEMENT</h2>
           </div>
           
-          <p className="text-gray-500 text-sm mb-8 font-medium italic flex items-center gap-2">
-            <Info size={14} className="text-indigo-500" />
-            Envoyez le montant exact sur l'un de ces numéros :
+          <p className="text-gray-500 text-[10px] font-black tracking-[0.3em] mb-12 uppercase flex items-center gap-3 relative z-10">
+            <Info size={16} className="text-[#00ffff]" />
+            EFFECTUEZ LE TRANSFERT AVANT DE REMPLIR LE FORMULAIRE :
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-16 relative z-10">
             {/* MVOLA Card */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex items-center gap-5 hover:border-amber-400 transition-colors">
-              <div className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center p-2">
-                <span className="font-black text-amber-600 text-xs italic">MVOLA</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Numéro MVOLA</span>
-                <span className="text-xl font-black text-gray-900">034 78 711 39</span>
-                <span className="text-xs font-bold text-amber-600 italic">Josiane</span>
+            <div className="bg-black/50 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-amber-500/50 transition-all group/card shadow-xl">
+              <div className="flex items-center gap-6">
+                <div className="w-16 h-16 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center p-3 transition-transform group-hover/card:scale-110">
+                  <span className="font-black text-amber-500 text-[10px] tracking-widest uppercase italic">MVOLA</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500 mb-1">RECEPTIONIST</span>
+                  <span className="text-2xl font-black text-white tracking-widest group-hover/card:text-amber-500 transition-colors">034 78 711 39</span>
+                  <span className="text-[10px] font-black text-amber-500/60 uppercase tracking-widest mt-1">JOSIANE</span>
+                </div>
               </div>
             </div>
 
             {/* ORANGE Card */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex items-center gap-5 hover:border-orange-500 transition-colors">
-              <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center p-2">
-                <span className="font-black text-orange-600 text-xs italic">ORANGE</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Numéro ORANGE</span>
-                <span className="text-xl font-black text-gray-900">037 78 391 76</span>
-                <span className="text-xs font-bold text-orange-600 italic">Mickael</span>
+            <div className="bg-black/50 backdrop-blur-sm rounded-2xl p-8 border border-white/5 hover:border-orange-500/50 transition-all group/card shadow-xl">
+              <div className="flex items-center gap-6">
+                <div className="w-16 h-16 bg-orange-500/10 border border-orange-500/20 rounded-2xl flex items-center justify-center p-3 transition-transform group-hover/card:scale-110">
+                  <span className="font-black text-orange-500 text-[10px] tracking-widest uppercase italic">ORANGE</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500 mb-1">RECEPTIONIST</span>
+                  <span className="text-2xl font-black text-white tracking-widest group-hover/card:text-orange-500 transition-colors">037 78 391 76</span>
+                  <span className="text-[10px] font-black text-orange-500/60 uppercase tracking-widest mt-1">MICKAEL</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-indigo-900 text-white rounded-2xl p-5 flex items-center gap-4 shadow-lg">
-            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-              <span className="font-black text-lg">!</span>
+          <div className="bg-[#00ffff]/5 border border-[#00ffff]/10 text-[#00ffff] rounded-2xl p-6 flex items-center gap-5 shadow-inner relative z-10">
+            <div className="w-12 h-12 rounded-full bg-[#00ffff]/10 border border-[#00ffff]/20 flex items-center justify-center shrink-0">
+              <Zap size={20} className="fill-current" />
             </div>
-            <p className="text-sm font-bold tracking-tight">
-              Récupérez la <span className="text-indigo-300 uppercase">Référence</span> de la transaction puis remplissez le formulaire ci-dessous.
+            <p className="text-[10px] font-black tracking-[0.2em] uppercase leading-relaxed">
+              RÉCUPÉREZ LA <span className="text-white">RÉFÉRENCE</span> DE TRANSACTION PUIS INITIALISEZ VOTRE COMMANDE CI-DESSOUS.
             </p>
           </div>
         </div>
       </div>
 
       {/* Editorial Header */}
-      <div className="mb-20 flex flex-col items-center text-center">
-        <span className="inline-block py-1.5 px-4 mb-6 rounded-full bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.3em] border border-indigo-100">
-          💎 Packs Disponibles
-        </span>
-        <h2 className="text-5xl font-black text-gray-900 sm:text-7xl tracking-tighter mb-8">
-          Choisissez votre <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-600">Recharge</span>
+      <div className="mb-24 flex flex-col items-center text-center">
+        <h2 className="text-5xl font-black text-white sm:text-7xl tracking-tighter mb-12 uppercase italic">
+          NOS <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffff] to-[#7000ff]">OFFRES</span> PACKS
         </h2>
-      </div>
-
-      {/* Premium Navigation Filters */}
-      <div className="flex justify-center mb-20">
-        <div className="inline-flex p-2 bg-gray-100/50 backdrop-blur-sm rounded-full border border-gray-200 overflow-x-auto no-scrollbar max-w-full">
+        
+        {/* Premium Navigation Filters */}
+        <div className="inline-flex p-2 bg-[#050505] backdrop-blur-md rounded-2xl border border-white/5 overflow-x-auto no-scrollbar max-w-full shadow-2xl">
           {categories.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setActiveCategory(cat)}
-              className={`whitespace-nowrap rounded-full px-10 py-3 text-[11px] font-black uppercase tracking-widest transition-all ${activeCategory === cat ? 'bg-white text-gray-900 shadow-xl' : 'bg-transparent text-gray-400 hover:text-gray-900'}`}
+              className={`whitespace-nowrap rounded-xl px-10 py-4 text-[10px] font-black uppercase tracking-[0.3em] transition-all ${activeCategory === cat ? 'bg-[#00ffff] text-black shadow-[0_0_20px_rgba(0,255,255,0.4)]' : 'bg-transparent text-gray-500 hover:text-white'}`}
             >
               {cat}
             </button>
@@ -284,20 +193,20 @@ const ProductGrid = () => {
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="animate-pulse space-y-8">
-              <div className="bg-gray-100 rounded-[2.5rem] aspect-[3/4]"></div>
-              <div className="flex flex-col items-center gap-3">
-                <div className="h-3 bg-gray-100 rounded w-1/4"></div>
-                <div className="h-6 bg-gray-100 rounded w-3/4"></div>
-                <div className="h-5 bg-gray-100 rounded w-1/2"></div>
+            <div key={i} className="animate-pulse space-y-8 bg-[#050505] p-8 rounded-3xl border border-white/5">
+              <div className="bg-white/5 rounded-2xl aspect-square"></div>
+              <div className="space-y-4">
+                <div className="h-2 bg-white/5 rounded w-1/4 mx-auto"></div>
+                <div className="h-4 bg-white/5 rounded w-3/4 mx-auto"></div>
+                <div className="h-10 bg-white/5 rounded w-full"></div>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
           {filteredProducts.map((product) => (
             <ProductCard 
               key={product.id} 
@@ -309,8 +218,96 @@ const ProductGrid = () => {
       )}
 
       {filteredProducts.length === 0 && !loading && (
-        <div className="text-center py-32">
-          <p className="text-gray-400 text-lg font-medium italic">Aucun pack disponible dans cette catégorie.</p>
+        <div className="text-center py-40">
+          <p className="text-gray-600 text-[10px] font-black uppercase tracking-[0.5em]">AUCUNE OFFRE DISPONIBLE DANS CETTE SECTION.</p>
+        </div>
+      )}
+
+      {/* Checkout Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-xl animate-in fade-in duration-300">
+          <div className="bg-[#050505] rounded-[3rem] p-10 sm:p-12 w-full max-w-xl shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-[#00ffff]/20 animate-in zoom-in-95 duration-300 relative">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[2px] bg-gradient-to-r from-transparent via-[#00ffff] to-transparent"></div>
+            
+            <div className="flex flex-col items-center text-center mb-12">
+              <div className="w-20 h-20 bg-[#00ffff]/5 border border-[#00ffff]/10 rounded-3xl flex items-center justify-center text-[#00ffff] mb-8 shadow-2xl">
+                <ShieldCheck size={40} />
+              </div>
+              <h3 className="text-2xl font-black text-white mb-3 tracking-widest uppercase italic">FINALISER L'ACHAT</h3>
+              <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.3em]">PACK : <span className="text-[#00ffff]">{selectedProduct?.name}</span></p>
+            </div>
+            
+            <form onSubmit={handleConfirmOrder} className="space-y-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="sm:col-span-2">
+                  <label className="block text-[9px] font-black uppercase tracking-[0.4em] text-[#00ffff]/60 mb-3 ml-2">RÉFÉRENCE TRANSACTION</label>
+                  <div className="relative group">
+                    <Hash className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-[#00ffff] transition-colors" size={18} />
+                    <input 
+                      required
+                      type="text" 
+                      value={formData.reference}
+                      onChange={(e) => setFormData({...formData, reference: e.target.value})}
+                      className="w-full pl-14 pr-6 py-5 rounded-2xl border border-white/5 bg-black focus:border-[#00ffff]/50 text-white outline-none transition-all font-black tracking-widest text-xs uppercase"
+                      placeholder="NUMÉRO DE RÉFÉRENCE"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[9px] font-black uppercase tracking-[0.4em] text-[#00ffff]/60 mb-3 ml-2">PSEUDO IN-GAME</label>
+                  <input 
+                    required
+                    type="text" 
+                    value={formData.pseudo}
+                    onChange={(e) => setFormData({...formData, pseudo: e.target.value})}
+                    className="w-full px-6 py-5 rounded-2xl border border-white/5 bg-black focus:border-[#00ffff]/50 text-white outline-none transition-all font-black tracking-widest text-xs uppercase"
+                    placeholder="NAME"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[9px] font-black uppercase tracking-[0.4em] text-[#00ffff]/60 mb-3 ml-2">UID FREE FIRE</label>
+                  <input 
+                    required
+                    type="text" 
+                    value={formData.uid}
+                    onChange={(e) => setFormData({...formData, uid: e.target.value})}
+                    className="w-full px-6 py-5 rounded-2xl border border-white/5 bg-black focus:border-[#00ffff]/50 text-white outline-none transition-all font-black tracking-widest text-xs uppercase"
+                    placeholder="ID: 123456789"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-8 flex flex-col sm:flex-row gap-6">
+                <button 
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="flex-1 px-8 py-5 rounded-2xl border border-white/5 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white hover:bg-white/5 transition-all"
+                >
+                  ANNULER
+                </button>
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex-1 px-8 py-5 rounded-2xl bg-[#7000ff] text-white text-[10px] font-black uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(112,0,255,0.3)] hover:bg-[#8521ff] transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3"
+                >
+                  {isSubmitting ? 'ENVOI...' : (
+                    <>
+                      INITIALISER TOP-UP
+                      <ChevronRight size={16} />
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+            
+            <button 
+              onClick={() => setShowModal(false)}
+              className="absolute top-10 right-10 text-gray-600 hover:text-[#00ffff] transition-colors"
+            >
+              <X size={24} />
+            </button>
+          </div>
         </div>
       )}
     </section>

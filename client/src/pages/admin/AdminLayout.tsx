@@ -1,54 +1,58 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { LayoutDashboard, ShoppingBag, ListOrdered, Home } from 'lucide-react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { LayoutDashboard, ShoppingBag, ListOrdered, Home, Gamepad2, Layers, CreditCard, LogOut } from 'lucide-react';
 
 const AdminLayout = () => {
+  const location = useLocation();
+
+  const navItems = [
+    { to: '/admin', icon: LayoutDashboard, label: 'Tableau de bord' },
+    { to: '/admin/products', icon: ShoppingBag, label: 'Produits' },
+    { to: '/admin/orders', icon: ListOrdered, label: 'Commandes' },
+  ];
+
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-[#000000] text-white">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex flex-col shadow-xl">
-        <div className="p-6">
-          <h2 className="text-2xl font-black tracking-tighter text-indigo-400 italic">IZY-FAST TOP UP ADMIN</h2>
+      <aside className="w-64 bg-[#050505] flex flex-col border-r border-[#00ffff]/20">
+        <div className="p-8">
+          <h2 className="text-xl font-black tracking-tighter text-[#00ffff] italic uppercase">IZY-FAST TOP UP</h2>
         </div>
         
-        <nav className="flex-grow p-4 space-y-2">
-          <Link
-            to="/admin"
-            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg hover:bg-gray-800 transition-colors"
-          >
-            <LayoutDashboard size={20} />
-            Tableau de bord
-          </Link>
-          <Link
-            to="/admin/products"
-            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg hover:bg-gray-800 transition-colors"
-          >
-            <ShoppingBag size={20} />
-            Produits
-          </Link>
-          <Link
-            to="/admin/orders"
-            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-lg hover:bg-gray-800 transition-colors"
-          >
-            <ListOrdered size={20} />
-            Commandes
-          </Link>
+        <nav className="flex-grow px-4 space-y-4">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.to;
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`flex items-center gap-3 px-6 py-3 text-sm font-bold rounded-2xl transition-all duration-300 ${
+                  isActive 
+                    ? 'bg-[#00ffff] text-black shadow-[0_0_15px_rgba(0,255,255,0.3)]' 
+                    : 'text-gray-400 hover:text-[#00ffff] hover:bg-[#00ffff]/5'
+                }`}
+              >
+                <item.icon size={20} />
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
         
-        <div className="p-4 border-t border-gray-800">
+        <div className="p-6">
           <Link
             to="/"
-            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-3 px-6 py-3 text-sm font-bold text-gray-400 hover:text-red-500 transition-colors w-full"
           >
-            <Home size={20} />
-            Retour Boutique
+            <LogOut size={20} />
+            Logout (Boutique)
           </Link>
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-grow overflow-auto p-8">
-        <div className="max-w-7xl mx-auto">
+      <main className="flex-grow overflow-auto">
+        <div className="p-10">
           <Outlet />
         </div>
       </main>

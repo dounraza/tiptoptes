@@ -85,84 +85,83 @@ const AdminProducts = () => {
   );
 
   return (
-    <div className="space-y-6 relative">
+    <div className="space-y-10 relative bg-black min-h-full">
       <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-6">
-        <div className="text-center lg:text-left">
-          <h1 className="text-3xl font-black text-gray-900 tracking-tight">Gestion du Catalogue</h1>
-          <p className="text-gray-500 font-medium">Contrôlez vos stocks et vos articles en un clin d'œil.</p>
+        <div>
+          <h1 className="text-2xl font-black text-[#00ffff] tracking-widest uppercase">GESTION PACKS / OFFRES</h1>
         </div>
         
-        <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
-          <div className="relative w-full sm:w-64">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+        <div className="flex flex-col sm:flex-row items-center gap-6 w-full lg:w-auto">
+          <div className="relative w-full sm:w-72">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
             <input 
               type="text"
-              placeholder="Rechercher..."
-              className="w-full pl-11 pr-4 py-3 bg-white border border-gray-100 rounded-2xl text-sm focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all shadow-sm"
+              placeholder="RECHERCHER..."
+              className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#00ffff]/10 rounded-xl text-xs font-bold text-white focus:ring-2 focus:ring-[#00ffff]/50 outline-none transition-all tracking-widest"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <button 
             onClick={handleOpenCreate}
-            className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-gray-900 text-white font-black rounded-xl hover:bg-indigo-600 transition-all shadow-xl active:scale-95"
+            className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3 bg-[#7000ff] text-white text-xs font-black uppercase rounded-xl hover:bg-[#8521ff] transition-all shadow-[0_0_20px_rgba(112,0,255,0.4)] tracking-widest active:scale-95"
           >
-            <Plus size={20} />
-            Nouveau Produit
+            <Plus size={18} />
+            AJOUTER OFFER
           </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-[#050505] rounded-xl overflow-hidden border border-[#00ffff]/5 shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className="bg-gray-50/50 border-b border-gray-100 text-[11px] font-black text-gray-400 uppercase tracking-widest">
-                <th className="px-8 py-5">Visuel</th>
-                <th className="px-8 py-5">Désignation</th>
-                <th className="px-8 py-5">Catégorie</th>
-                <th className="px-8 py-5">Prix</th>
-                <th className="px-8 py-5">Stock</th>
-                <th className="px-8 py-5 text-right">Actions</th>
+              <tr className="bg-[#0f0f0f] border-b border-[#00ffff]/10 text-[11px] font-black text-[#00ffff] uppercase tracking-[0.2em]">
+                <th className="px-8 py-6">Visual</th>
+                <th className="px-8 py-6">Name</th>
+                <th className="px-8 py-6">Category</th>
+                <th className="px-8 py-6">Price</th>
+                <th className="px-8 py-6">Stock</th>
+                <th className="px-8 py-6 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
+            <tbody className="divide-y divide-[#00ffff]/5">
               {loading ? (
                 [...Array(3)].map((_, i) => (
                   <tr key={i} className="animate-pulse">
-                    <td colSpan={6} className="px-8 py-10 bg-gray-50/20"></td>
+                    <td colSpan={6} className="px-8 py-10 bg-[#050505]"></td>
                   </tr>
                 ))
               ) : filteredProducts.map((product) => (
-                <tr key={product.id} className="hover:bg-gray-50/50 transition-colors group">
-                  <td className="px-8 py-4">
-                    <img src={product.image_url} alt={product.name} className="w-12 h-12 rounded-xl object-cover border border-gray-100 shadow-sm" />
+                <tr key={product.id} className="hover:bg-[#00ffff]/5 transition-colors group">
+                  <td className="px-8 py-5">
+                    <img src={product.image_url} alt={product.name} className="w-14 h-14 rounded-lg object-cover border border-[#00ffff]/10 shadow-lg" />
                   </td>
-                  <td className="px-8 py-4 font-bold text-gray-900">{product.name}</td>
-                  <td className="px-8 py-4">
-                    <span className="px-3 py-1 bg-gray-100 text-gray-600 text-[10px] font-black uppercase rounded-full tracking-wider">
+                  <td className="px-8 py-5 font-bold text-gray-200 tracking-wide">{product.name}</td>
+                  <td className="px-8 py-5">
+                    <span className="px-3 py-1 bg-[#00ffff]/10 text-[#00ffff] text-[10px] font-black uppercase rounded-md tracking-widest">
                       {product.category}
                     </span>
                   </td>
-                  <td className="px-8 py-4 font-black text-indigo-600">
+                  <td className="px-8 py-5 font-black text-[#00ffff] tracking-widest">
                     {new Intl.NumberFormat('fr-MG', { style: 'currency', currency: 'MGA', maximumFractionDigits: 0 }).format(product.price)}
                   </td>
-                  <td className="px-8 py-4">
-                    <span className={`font-bold ${product.stock <= 5 ? 'text-red-500' : 'text-gray-900'}`}>
-                      {product.stock} pcs
+                  <td className="px-8 py-5">
+                    <span className={`font-bold tracking-wide ${product.stock <= 5 ? 'text-red-500' : 'text-gray-300'}`}>
+                      {product.stock} PCS
                     </span>
                   </td>
-                  <td className="px-8 py-4 text-right">
-                    <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <td className="px-8 py-5 text-right">
+                    <div className="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button 
                         onClick={() => handleOpenEdit(product)}
-                        className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="Modifier">
-                        <Edit2 size={18} />
+                        className="p-2.5 text-[#00ffff] hover:bg-[#00ffff]/10 rounded-lg transition-colors border border-[#00ffff]/20" title="Modifier">
+                        <Edit2 size={16} />
                       </button>
                       <button 
                         onClick={() => handleDelete(product.id)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer">
-                        <Trash2 size={18} />
+                        className="p-2.5 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors border border-red-500/20" title="Supprimer">
+                        <Trash2 size={16} />
                       </button>
                     </div>
                   </td>
@@ -170,8 +169,8 @@ const AdminProducts = () => {
               ))}
               {!loading && filteredProducts.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-8 py-20 text-center text-gray-400 italic font-medium">
-                    Aucun produit trouvé pour "{searchQuery}".
+                  <td colSpan={6} className="px-8 py-20 text-center text-gray-500 tracking-[0.2em] font-black text-xs uppercase">
+                    AUCUN PRODUIT TROUVÉ.
                   </td>
                 </tr>
               )}
@@ -182,79 +181,78 @@ const AdminProducts = () => {
 
       {/* Modal Produit */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl animate-in zoom-in-95 duration-200 border border-gray-100">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-black text-gray-900 tracking-tight">
-                {isEditing ? 'Modifier Article' : 'Nouvel Article'}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="bg-[#0a0a0a] w-full max-w-lg rounded-2xl p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] animate-in zoom-in-95 duration-200 border border-[#00ffff]/20">
+            <div className="flex justify-between items-center mb-10">
+              <h2 className="text-2xl font-black text-[#00ffff] tracking-widest uppercase">
+                {isEditing ? 'MODIFIER ARTICLE' : 'NOUVEL ARTICLE'}
               </h2>
-              <button onClick={() => setShowModal(false)} className="p-2 text-gray-400 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors">
+              <button onClick={() => setShowModal(false)} className="p-2 text-gray-500 hover:text-[#00ffff] rounded-full transition-colors">
                 <X size={24} />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Désignation</label>
+                <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff]/60 mb-3">DÉSIGNATION</label>
                 <input 
                   type="text" 
                   required 
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all font-medium"
+                  className="w-full px-5 py-4 bg-black border border-[#00ffff]/10 rounded-xl focus:border-[#00ffff] text-white outline-none transition-all font-bold tracking-widest text-sm"
                   value={productData.name}
                   onChange={e => setProductData({...productData, name: e.target.value})}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Prix (MGA)</label>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff]/60 mb-3">PRIX (MGA)</label>
                   <input 
                     type="number" 
                     required 
-                    className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all font-medium"
+                    className="w-full px-5 py-4 bg-black border border-[#00ffff]/10 rounded-xl focus:border-[#00ffff] text-white outline-none transition-all font-bold tracking-widest text-sm"
                     value={productData.price}
                     onChange={e => setProductData({...productData, price: parseFloat(e.target.value)})}
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Stock disponible</label>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff]/60 mb-3">STOCK</label>
                   <input 
                     type="number" 
                     required 
-                    className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all font-medium"
+                    className="w-full px-5 py-4 bg-black border border-[#00ffff]/10 rounded-xl focus:border-[#00ffff] text-white outline-none transition-all font-bold tracking-widest text-sm"
                     value={productData.stock}
                     onChange={e => setProductData({...productData, stock: parseInt(e.target.value)})}
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Catégorie</label>
+                <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff]/60 mb-3">CATÉGORIE</label>
                 <select 
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all font-medium appearance-none"
+                  className="w-full px-5 py-4 bg-black border border-[#00ffff]/10 rounded-xl focus:border-[#00ffff] text-white outline-none transition-all font-bold tracking-widest text-sm appearance-none"
                   value={productData.category}
                   onChange={e => setProductData({...productData, category: e.target.value})}
                 >
-                  <option>Femmes</option>
-                  <option>Hommes</option>
-                  <option>Accessoires</option>
-                  <option>Chaussures</option>
+                  <option value="LEVEL UP">LEVEL UP</option>
+                  <option value="ABONNEMENT">ABONNEMENT</option>
+                  <option value="TOP UP BONUS">TOP UP BONUS</option>
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Image URL</label>
+                <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff]/60 mb-3">IMAGE URL</label>
                 <input 
                   type="url" 
                   required 
-                  className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-indigo-50 focus:border-indigo-200 outline-none transition-all font-medium"
+                  className="w-full px-5 py-4 bg-black border border-[#00ffff]/10 rounded-xl focus:border-[#00ffff] text-white outline-none transition-all font-bold tracking-widest text-sm"
                   value={productData.image_url}
                   onChange={e => setProductData({...productData, image_url: e.target.value})}
                 />
               </div>
-              <div className="pt-6">
+              <div className="pt-8">
                 <button 
                   type="submit" 
-                  className="w-full py-4 bg-gray-900 text-white font-black rounded-2xl hover:bg-indigo-600 transition-all shadow-xl shadow-gray-200 active:scale-95"
+                  className="w-full py-5 bg-[#7000ff] text-white font-black uppercase tracking-[0.2em] rounded-xl hover:bg-[#8521ff] transition-all shadow-[0_0_30px_rgba(112,0,255,0.3)] active:scale-95 text-xs"
                 >
-                  {isEditing ? 'Mettre à jour' : 'Ajouter au catalogue'}
+                  {isEditing ? 'METTRE À JOUR' : 'AJOUTER AU CATALOGUE'}
                 </button>
               </div>
             </form>
