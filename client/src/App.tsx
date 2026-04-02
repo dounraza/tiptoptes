@@ -10,27 +10,29 @@ import Login from './pages/Login';
 import { ShoppingBag, Search, User, Menu, Settings } from 'lucide-react';
 
 const ClientHome = () => (
-  <div className="min-h-screen bg-gray-50 flex flex-col">
+  <div className="min-h-screen bg-black flex flex-col selection:bg-[#00ffff] selection:text-black">
     {/* Navigation */}
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-8">
-          <Link to="/" className="text-xl font-black text-indigo-600 tracking-tighter italic">IZY-FAST TOP UP 💎</Link>
-          <div className="hidden md:flex gap-6">
-            <Link to="/" className="text-sm font-semibold text-gray-900 hover:text-indigo-600 transition-colors">Accueil</Link>
-            <a href="#products" className="text-sm font-semibold text-gray-600 hover:text-indigo-600 transition-colors">Collection</a>
-            <a href="#" className="text-sm font-semibold text-gray-600 hover:text-indigo-600 transition-colors">À propos</a>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-[#00ffff]/10">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="flex items-center gap-12">
+          <Link to="/" className="text-2xl font-black text-white tracking-tighter italic hover:text-[#00ffff] transition-colors">
+            IZY-FAST <span className="text-[#00ffff]">TOP UP</span>
+          </Link>
+          <div className="hidden md:flex gap-8">
+            <Link to="/" className="text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff] hover:text-white transition-colors">Accueil</Link>
+            <a href="#products" className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#00ffff] transition-colors">Packs FF</a>
+            <a href="#" className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#00ffff] transition-colors">Support</a>
           </div>
         </div>
         
-        <div className="flex items-center gap-5">
-          <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
+        <div className="flex items-center gap-6">
+          <button className="p-3 text-gray-500 hover:text-[#00ffff] hover:bg-[#00ffff]/5 rounded-xl transition-all border border-transparent hover:border-[#00ffff]/20">
             <Search size={20} />
           </button>
-          <Link to="/login" className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-gray-100 rounded-full transition-colors" title="Connexion">
+          <Link to="/login" className="p-3 text-gray-500 hover:text-[#7000ff] hover:bg-[#7000ff]/5 rounded-xl transition-all border border-transparent hover:border-[#7000ff]/20" title="Admin">
             <User size={20} />
           </Link>
-          <button className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
+          <button className="md:hidden p-3 text-gray-500 hover:text-[#00ffff] rounded-xl transition-all border border-[#00ffff]/10">
             <Menu size={20} />
           </button>
         </div>
@@ -38,45 +40,54 @@ const ClientHome = () => (
     </nav>
 
     {/* Main Content */}
-    <main className="flex-grow pt-16">
+    <main className="flex-grow pt-20">
       <Hero />
       <ProductGrid />
     </main>
 
     {/* Footer */}
-    <footer className="bg-gray-900 text-white py-16 px-4">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer className="bg-[#050505] text-white py-20 px-8 border-t border-[#00ffff]/5 relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00ffff]/20 to-transparent"></div>
+      
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 relative z-10">
         <div className="col-span-1 md:col-span-2">
-          <h2 className="text-2xl font-black mb-6 tracking-tighter italic text-indigo-400">IZY-FAST TOP UP 💎</h2>
-          <p className="text-gray-400 max-w-sm mb-4 font-medium">
-            Votre partenaire de confiance pour toutes vos recharges Free Fire à Madagascar. Service rapide et livraison garantie via UID.
+          <h2 className="text-3xl font-black mb-8 tracking-tighter italic text-white uppercase">
+            IZY-FAST <span className="text-[#00ffff]">TOP UP</span>
+          </h2>
+          <p className="text-gray-500 max-w-sm mb-8 font-bold text-sm tracking-widest leading-relaxed uppercase">
+            VOTRE PARTENAIRE DE CONFIANCE POUR TOUTES VOS RECHARGES FREE FIRE À MADAGASCAR. SERVICE ULTRA-RAPIDE.
           </p>
-          <div className="flex flex-wrap gap-2 mb-8">
-            <span className="text-[10px] bg-gray-800 text-gray-400 px-2 py-1 rounded-md">#FreeFire</span>
-            <span className="text-[10px] bg-gray-800 text-gray-400 px-2 py-1 rounded-md">#TopUpFF</span>
-            <span className="text-[10px] bg-gray-800 text-gray-400 px-2 py-1 rounded-md">#DiamantFF</span>
-            <span className="text-[10px] bg-gray-800 text-gray-400 px-2 py-1 rounded-md">#GamingMG</span>
+          <div className="flex flex-wrap gap-3 mb-12">
+            <span className="text-[10px] font-black bg-[#00ffff]/5 text-[#00ffff] border border-[#00ffff]/10 px-3 py-1.5 rounded-md tracking-widest uppercase">#FreeFire</span>
+            <span className="text-[10px] font-black bg-[#7000ff]/5 text-[#7000ff] border border-[#7000ff]/10 px-3 py-1.5 rounded-md tracking-widest uppercase">#TopUpFF</span>
+            <span className="text-[10px] font-black bg-[#00ffff]/5 text-[#00ffff] border border-[#00ffff]/10 px-3 py-1.5 rounded-md tracking-widest uppercase">#DiamantFF</span>
           </div>
         </div>
         <div>
-          <h3 className="font-bold mb-6 uppercase text-xs tracking-widest text-indigo-400">Services</h3>
-          <ul className="space-y-4 text-gray-400 text-sm">
-            <li><a href="#" className="hover:text-white transition-colors">Recharge UID</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Abonnements</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Support WhatsApp</a></li>
+          <h3 className="font-black mb-8 uppercase text-[10px] tracking-[0.4em] text-[#00ffff]">SERVICES</h3>
+          <ul className="space-y-5 text-gray-500 text-[10px] font-black tracking-[0.2em] uppercase">
+            <li><a href="#" className="hover:text-[#00ffff] transition-colors">RECHARGE UID</a></li>
+            <li><a href="#" className="hover:text-[#00ffff] transition-colors">ABONNEMENTS</a></li>
+            <li><a href="#" className="hover:text-[#00ffff] transition-colors">SUPPORT WHATSAPP</a></li>
           </ul>
         </div>
         <div>
-          <h3 className="font-bold mb-6 uppercase text-xs tracking-widest text-indigo-400">Suivez-nous</h3>
-          <div className="flex gap-4">
-            <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-600 transition-colors cursor-pointer text-xs font-bold">FB</div>
-            <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-600 transition-colors cursor-pointer text-xs font-bold">WA</div>
-            <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-indigo-600 transition-colors cursor-pointer text-xs font-bold">TT</div>
+          <h3 className="font-black mb-8 uppercase text-[10px] tracking-[0.4em] text-[#7000ff]">CONNECT</h3>
+          <div className="flex gap-5">
+            {[
+              { label: 'FB', color: 'hover:bg-blue-600' },
+              { label: 'WA', color: 'hover:bg-green-600' },
+              { label: 'TT', color: 'hover:bg-pink-600' }
+            ].map((social) => (
+              <div key={social.label} className={`w-12 h-12 bg-black border border-white/5 rounded-xl flex items-center justify-center transition-all cursor-pointer text-[10px] font-black tracking-widest ${social.color} hover:border-transparent hover:scale-110 shadow-lg`}>
+                {social.label}
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto pt-16 mt-16 border-t border-gray-800 text-center text-gray-500 text-[10px] uppercase font-bold tracking-widest">
-        &copy; 2026 IZY-FAST TOP UP. Tous droits réservés.
+      <div className="max-w-7xl mx-auto pt-16 mt-20 border-t border-white/5 text-center text-gray-600 text-[9px] uppercase font-black tracking-[0.5em]">
+        &copy; 2026 IZY-FAST TOP UP. SECURED GAMING INFRASTRUCTURE.
       </div>
     </footer>
   </div>
