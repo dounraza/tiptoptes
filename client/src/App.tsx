@@ -7,43 +7,66 @@ import Dashboard from './pages/admin/Dashboard';
 import AdminProducts from './pages/admin/Products';
 import AdminOrders from './pages/admin/Orders';
 import Login from './pages/Login';
-import { ShoppingBag, Search, User, Menu, Settings } from 'lucide-react';
+import { ShoppingBag, Search, User, Menu, Settings, X } from 'lucide-react';
 
-const ClientHome = () => (
-  <div className="min-h-screen bg-black flex flex-col selection:bg-[#00ffff] selection:text-black">
-    {/* Navigation */}
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-[#00ffff]/10">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-12">
-          <Link to="/" className="text-2xl font-black text-white tracking-tighter italic hover:text-[#00ffff] transition-colors">
-            IZY-FAST <span className="text-[#00ffff]">TOP UP</span>
-          </Link>
-          <div className="hidden md:flex gap-8">
-            <Link to="/" className="text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff] hover:text-white transition-colors">Accueil</Link>
-            <a href="#products" className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#00ffff] transition-colors">Packs FF</a>
-            <a href="#" className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#00ffff] transition-colors">Support</a>
+const ClientHome = () => {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [showSearch, setShowSearch] = React.useState(false);
+
+  return (
+    <div className="min-h-screen bg-black flex flex-col selection:bg-[#00ffff] selection:text-black">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-[#00ffff]/10">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-12">
+            <Link to="/" className="text-2xl font-black text-white tracking-tighter italic hover:text-[#00ffff] transition-colors">
+              IZY-FAST <span className="text-[#00ffff]">TOP UP</span>
+            </Link>
+            <div className="hidden md:flex gap-8">
+              <Link to="/" className="text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff] hover:text-white transition-colors">Accueil</Link>
+              <a href="#products" className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#00ffff] transition-colors">Packs FF</a>
+              <a href="#" className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-[#00ffff] transition-colors">Support</a>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-6">
+            <div className={`relative transition-all duration-300 ${showSearch ? 'w-48 sm:w-64 opacity-100' : 'w-0 opacity-0 overflow-hidden'}`}>
+              <input 
+                type="text"
+                placeholder="RECHERCHER UN PACK..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-[#0a0a0a] border border-[#00ffff]/20 rounded-xl py-2 pl-4 pr-10 text-[10px] font-black uppercase tracking-widest text-white focus:outline-none focus:border-[#00ffff]/50 transition-all"
+              />
+              <button 
+                onClick={() => {setSearchQuery(''); setShowSearch(false);}}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-red-500"
+              >
+                <X size={14} />
+              </button>
+            </div>
+
+            <button 
+              onClick={() => setShowSearch(!showSearch)}
+              className={`p-3 rounded-xl transition-all border ${showSearch ? 'text-[#00ffff] bg-[#00ffff]/10 border-[#00ffff]/30' : 'text-gray-500 hover:text-[#00ffff] hover:bg-[#00ffff]/5 border-transparent hover:border-[#00ffff]/20'}`}
+            >
+              <Search size={20} />
+            </button>
+            <Link to="/login" className="p-3 text-gray-500 hover:text-[#7000ff] hover:bg-[#7000ff]/5 rounded-xl transition-all border border-transparent hover:border-[#7000ff]/20" title="Admin">
+              <User size={20} />
+            </Link>
+            <button className="md:hidden p-3 text-gray-500 hover:text-[#00ffff] rounded-xl transition-all border border-[#00ffff]/10">
+              <Menu size={20} />
+            </button>
           </div>
         </div>
-        
-        <div className="flex items-center gap-6">
-          <button className="p-3 text-gray-500 hover:text-[#00ffff] hover:bg-[#00ffff]/5 rounded-xl transition-all border border-transparent hover:border-[#00ffff]/20">
-            <Search size={20} />
-          </button>
-          <Link to="/login" className="p-3 text-gray-500 hover:text-[#7000ff] hover:bg-[#7000ff]/5 rounded-xl transition-all border border-transparent hover:border-[#7000ff]/20" title="Admin">
-            <User size={20} />
-          </Link>
-          <button className="md:hidden p-3 text-gray-500 hover:text-[#00ffff] rounded-xl transition-all border border-[#00ffff]/10">
-            <Menu size={20} />
-          </button>
-        </div>
-      </div>
-    </nav>
+      </nav>
 
-    {/* Main Content */}
-    <main className="flex-grow pt-20">
-      <Hero />
-      <ProductGrid />
-    </main>
+      {/* Main Content */}
+      <main className="flex-grow pt-20">
+        <Hero />
+        <ProductGrid searchQuery={searchQuery} />
+      </main>
 
     {/* Footer */}
     <footer className="bg-[#050505] text-white py-20 px-8 border-t border-[#00ffff]/5 relative overflow-hidden">
@@ -91,7 +114,8 @@ const ClientHome = () => (
       </div>
     </footer>
   </div>
-);
+  );
+};
 
 function App() {
   return (

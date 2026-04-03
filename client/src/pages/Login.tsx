@@ -79,18 +79,26 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="pt-4">
+            <div className="pt-4 space-y-4">
               <button 
                 type="submit" 
                 disabled={loading}
                 className="w-full py-5 bg-[#7000ff] hover:bg-[#8521ff] text-white font-black uppercase tracking-[0.2em] rounded-2xl transition-all shadow-[0_0_30px_rgba(112,0,255,0.3)] active:scale-95 flex items-center justify-center gap-3 text-xs disabled:opacity-50"
               >
-                {loading ? 'Authenticating...' : (
+                {loading ? 'AUTHENTIFICATION...' : (
                   <>
-                    Initialize Session
+                    S'AUTHENTIFIER
                     <ChevronRight size={18} />
                   </>
                 )}
+              </button>
+
+              <button 
+                type="button"
+                onClick={() => navigate('/')}
+                className="w-full py-5 bg-transparent border border-white/10 hover:bg-white/5 text-gray-500 hover:text-white font-black uppercase tracking-[0.2em] rounded-2xl transition-all flex items-center justify-center gap-3 text-[10px]"
+              >
+                RETOUR BOUTIQUE
               </button>
             </div>
           </form>

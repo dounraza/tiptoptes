@@ -13,7 +13,11 @@ interface Product {
 
 const categories = ['Tout', 'LEVEL UP', 'TOP UP BONUS', 'ABONNEMENT'];
 
-const ProductGrid = () => {
+interface ProductGridProps {
+  searchQuery?: string;
+}
+
+const ProductGrid = ({ searchQuery = '' }: ProductGridProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('Tout');
@@ -84,9 +88,12 @@ const ProductGrid = () => {
     }
   };
 
-  const filteredProducts = activeCategory === 'Tout' 
-    ? products 
-    : products.filter(p => p.category === activeCategory);
+  const filteredProducts = products.filter(p => {
+    const matchesCategory = activeCategory === 'Tout' || p.category === activeCategory;
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          p.category.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <section id="products" className="py-24 px-6 max-w-7xl mx-auto relative bg-black">
@@ -280,16 +287,9 @@ const ProductGrid = () => {
 
               <div className="pt-8 flex flex-col sm:flex-row gap-6">
                 <button 
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="flex-1 px-8 py-5 rounded-2xl border border-white/5 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white hover:bg-white/5 transition-all"
-                >
-                  ANNULER
-                </button>
-                <button 
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 px-8 py-5 rounded-2xl bg-[#7000ff] text-white text-[10px] font-black uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(112,0,255,0.3)] hover:bg-[#8521ff] transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3"
+                  className="flex-1 px-8 py-5 rounded-2xl bg-[#7000ff] text-white text-[10px] font-black uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(112,0,255,0.3)] hover:bg-[#8521ff] transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3 order-1 sm:order-2"
                 >
                   {isSubmitting ? 'ENVOI...' : (
                     <>
@@ -298,14 +298,21 @@ const ProductGrid = () => {
                     </>
                   )}
                 </button>
+                <button 
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="flex-1 px-8 py-5 rounded-2xl border border-white/5 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white hover:bg-white/5 transition-all order-2 sm:order-1"
+                >
+                  ANNULER
+                </button>
               </div>
             </form>
             
             <button 
               onClick={() => setShowModal(false)}
-              className="absolute top-10 right-10 text-gray-600 hover:text-[#00ffff] transition-colors"
+              className="absolute top-8 right-8 text-red-500 hover:text-red-400 transition-colors bg-red-500/10 p-2 rounded-full border border-red-500/20"
             >
-              <X size={24} />
+              <X size={20} />
             </button>
           </div>
         </div>
