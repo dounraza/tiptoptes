@@ -146,8 +146,8 @@ const ProductGrid = ({ searchQuery = '' }: ProductGridProps) => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500 mb-1">RECEPTIONIST</span>
-                  <span className="text-2xl font-black text-white tracking-widest group-hover/card:text-amber-500 transition-colors">034 78 711 39</span>
-                  <span className="text-[10px] font-black text-amber-500/60 uppercase tracking-widest mt-1">JOSIANE</span>
+                  <span className="text-2xl font-black text-white tracking-widest group-hover/card:text-amber-500 transition-colors">038 95 103 97</span>
+                  <span className="text-[10px] font-black text-amber-500/60 uppercase tracking-widest mt-1">NOËLIN Véronique</span>
                 </div>
               </div>
             </div>
@@ -160,8 +160,8 @@ const ProductGrid = ({ searchQuery = '' }: ProductGridProps) => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500 mb-1">RECEPTIONIST</span>
-                  <span className="text-2xl font-black text-white tracking-widest group-hover/card:text-orange-500 transition-colors">037 78 391 76</span>
-                  <span className="text-[10px] font-black text-orange-500/60 uppercase tracking-widest mt-1">MICKAEL</span>
+                  <span className="text-2xl font-black text-white tracking-widest group-hover/card:text-orange-500 transition-colors">037 20 271 82</span>
+                  <span className="text-[10px] font-black text-orange-500/60 uppercase tracking-widest mt-1">Julie Rijamalala</span>
                 </div>
               </div>
             </div>
