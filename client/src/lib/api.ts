@@ -15,6 +15,16 @@ export const authApi = {
     if (res.data.token) localStorage.setItem('token', res.data.token);
     return res.data;
   },
+  updatePassword: async (newPassword: string) => {
+    const token = localStorage.getItem('token');
+    console.log('Update Password API Call: Token found directly:', !!token);
+    const res = await api.post('/auth/update-password', { new_password: newPassword }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return res.data;
+  },
   logout: () => localStorage.removeItem('token')
 };
 

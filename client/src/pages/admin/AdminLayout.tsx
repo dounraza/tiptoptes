@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ShoppingBag, ListOrdered, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, ListOrdered, LogOut, Menu, X, User } from 'lucide-react';
 
 const AdminLayout = () => {
   const location = useLocation();
@@ -10,6 +10,7 @@ const AdminLayout = () => {
     { to: '/admin', icon: LayoutDashboard, label: 'Tableau de bord' },
     { to: '/admin/products', icon: ShoppingBag, label: 'Produits' },
     { to: '/admin/orders', icon: ListOrdered, label: 'Commandes' },
+    { to: '/admin/password', icon: User, label: 'Mot de passe' },
   ];
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);

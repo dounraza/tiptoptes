@@ -6,6 +6,7 @@ import AdminLayout from './pages/admin/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
 import AdminProducts from './pages/admin/Products';
 import AdminOrders from './pages/admin/Orders';
+import PasswordUpdate from './pages/admin/PasswordUpdate';
 import Login from './pages/Login';
 import { ShoppingBag, Search, User, Menu, Settings, X } from 'lucide-react';
 
@@ -130,6 +131,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="orders" element={<AdminOrders />} />
+          <Route path="password" element={<PasswordUpdate />} />
         </Route>
       </Routes>
     </Router>

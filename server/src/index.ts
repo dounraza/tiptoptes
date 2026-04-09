@@ -1,12 +1,16 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 import { createClient } from '@supabase/supabase-js';
 
 dotenv.config();
 
 const app = express();
 const port = 3000;
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+console.log('Server JWT_SECRET being used:', JWT_SECRET); // Log the JWT_SECRET
+
 
 const supabaseUrl = process.env.SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_ANON_KEY || '';
@@ -14,6 +18,28 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 app.use(cors());
 app.use(express.json());
+
+// Middleware d'authentification JWT
+const authenticateJWT = (req: any, res: any, next: any) => {
+  const authHeader = req.headers.authorization;
+  console.log('Server Auth Middleware: Authorization Header:', authHeader); // Add this log
+  if (authHeader) {
+    if (!authHeader.startsWith('Bearer ')) {
+      return res.status(400).json({ error: 'Invalid Authorization header format. Expected "Bearer <token>"' });
+    }
+    const token = authHeader.split(' ')[1];
+    jwt.verify(token, JWT_SECRET, (err: any, user: any) => {
+      if (err) {
+        console.error('Server Auth Middleware: JWT verification failed:', err); // Log verification errors
+        return res.status(403).json({ error: 'Invalid token' });
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.status(401).json({ error: 'This endpoint requires a valid Bearer token' });
+  }
+};
 
 // Log pour voir ce qui se passe
 app.use((req, res, next) => {
@@ -50,7 +76,25 @@ app.get('/api/products', async (req, res) => {
 
 // POST /api/auth/login
 app.post('/api/auth/login', (req, res) => {
-  res.json({ token: 'fake-jwt-token', user: { email: req.body.email } });
+  const { email, password } = req.body;
+  // Simulation d'authentification (remplacer par vraie logique)
+  if (email && password) {
+    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '24h' });
+    res.json({ token, user: { email } });
+  } else {
+    res.status(401).json({ error: 'Invalid credentials' });
+  }
+});
+
+// POST /api/auth/update-password
+app.post('/api/auth/update-password', authenticateJWT, (req, res) => {
+  const { new_password } = req.body;
+  // Simulation de mise à jour du mot de passe (remplacer par vraie logique)
+  if (new_password) {
+    res.json({ message: 'Mot de passe mis à jour avec succès' });
+  } else {
+    res.status(400).json({ error: 'Missing new password' });
+  }
 });
 
 // POST /api/orders (Passer une commande)
