@@ -18,7 +18,7 @@ const AdminLayout = () => {
     <div className="flex h-screen bg-[#000000] text-white overflow-hidden">
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#050505] border-b border-[#00ffff]/20 flex items-center justify-between px-6 z-50">
-        <h2 className="text-sm font-black tracking-tighter text-[#00ffff] italic uppercase text-center">IZY-FAST</h2>
+        <h2 className="text-sm font-black tracking-tighter text-[#00ffff] italic uppercase text-center">RECHARGE DIAM'S</h2>
         <button onClick={toggleSidebar} className="p-2 text-[#00ffff]">
           {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -30,7 +30,7 @@ const AdminLayout = () => {
         lg:relative lg:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="p-8 hidden lg:block">
-          <h2 className="text-xl font-black tracking-tighter text-[#00ffff] italic uppercase">IZY-FAST TOP UP</h2>
+          <h2 className="text-xl font-black tracking-tighter text-[#00ffff] italic uppercase">RECHARGE DIAM'S</h2>
         </div>
         
         <nav className="flex-grow px-4 space-y-4 mt-20 lg:mt-0">

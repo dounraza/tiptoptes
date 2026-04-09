@@ -35,7 +35,7 @@ const Login = () => {
           <div className="inline-flex items-center justify-center w-20 h-20 bg-[#050505] border border-[#00ffff]/20 rounded-3xl mb-6 shadow-[0_0_30px_rgba(0,255,255,0.1)]">
             <ShieldCheck size={40} className="text-[#00ffff]" />
           </div>
-          <h1 className="text-3xl font-black text-white tracking-[0.2em] uppercase mb-2 italic">IZY-FAST</h1>
+          <h1 className="text-3xl font-black text-white tracking-[0.2em] uppercase mb-2 italic">RECHARGE DIAM'S</h1>
           <p className="text-[#00ffff] font-bold text-[10px] tracking-[0.4em] uppercase">Admin Portal Access</p>
         </div>
 
@@ -105,7 +105,7 @@ const Login = () => {
         </div>
 
         <p className="text-center mt-8 text-gray-600 font-bold text-[10px] tracking-[0.2em] uppercase">
-          &copy; 2024 IZY-FAST TOP UP . Secured Infrastructure
+          &copy; 2024 RECHARGE DIAM'S . Secured Infrastructure
         </p>
       </div>
     </div>

@@ -20,7 +20,7 @@ const ClientHome = () => {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-12">
             <Link to="/" className="text-2xl font-black text-white tracking-tighter italic hover:text-[#00ffff] transition-colors">
-              IZY-FAST <span className="text-[#00ffff]">TOP UP</span>
+              RECHARGE DIAM'S <span className="text-[#00ffff]"></span>
             </Link>
             <div className="hidden md:flex gap-8">
               <Link to="/" className="text-[10px] font-black uppercase tracking-[0.3em] text-[#00ffff] hover:text-white transition-colors">Accueil</Link>
@@ -75,7 +75,7 @@ const ClientHome = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 relative z-10">
           <div className="col-span-1 md:col-span-2">
             <h2 className="text-3xl font-black mb-8 tracking-tighter italic text-white uppercase">
-              IZY-FAST <span className="text-[#00ffff]">TOP UP</span>
+              RECHARGE DIAM'S <span className="text-[#00ffff]"></span>
             </h2>
             <p className="text-gray-500 max-w-sm mb-8 font-bold text-sm tracking-widest leading-relaxed uppercase">
               VOTRE PARTENAIRE DE CONFIANCE POUR TOUTES VOS RECHARGES FREE FIRE À MADAGASCAR. SERVICE ULTRA-RAPIDE.
@@ -110,7 +110,7 @@ const ClientHome = () => {
           </div>
         </div>
         <div className="max-w-7xl mx-auto pt-16 mt-20 border-t border-white/5 text-center text-gray-600 text-[9px] uppercase font-black tracking-[0.5em]">
-          &copy; 2026 IZY-FAST TOP UP. SECURED GAMING INFRASTRUCTURE.
+          &copy; 2026 RECHARGE DIAM'S. SECURED GAMING INFRASTRUCTURE.
         </div>
       </footer>
     </div>
